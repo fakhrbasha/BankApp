@@ -137,12 +137,12 @@ Register a new user. A bank account is automatically created with a generated ac
 }
 ```
 
-| Field           | Type   | Required | Description                   |
-|-----------------|--------|----------|-------------------------------|
-| username        | string | Yes      | Display name of the user      |
-| email           | string | Yes      | Must be unique                |
-| password        | string | Yes      | Hashed before storage         |
-| confirmPassword | string | Yes      | Must match `password`         |
+| Field           | Type   | Required | Description              |
+| --------------- | ------ | -------- | ------------------------ |
+| username        | string | Yes      | Display name of the user |
+| email           | string | Yes      | Must be unique           |
+| password        | string | Yes      | Hashed before storage    |
+| confirmPassword | string | Yes      | Must match `password`    |
 
 **Response 200**
 
@@ -172,7 +172,7 @@ Register a new user. A bank account is automatically created with a generated ac
 **Error Responses**
 
 | Status | Condition            |
-|--------|----------------------|
+| ------ | -------------------- |
 | 409    | Email already exists |
 | 400    | Validation error     |
 
@@ -192,7 +192,7 @@ Authenticate an existing user and receive a JWT access token.
 ```
 
 | Field    | Type   | Required | Description         |
-|----------|--------|----------|---------------------|
+| -------- | ------ | -------- | ------------------- |
 | email    | string | Yes      | Registered email    |
 | password | string | Yes      | Plain text password |
 
@@ -216,7 +216,7 @@ Authenticate an existing user and receive a JWT access token.
 **Error Responses**
 
 | Status | Condition        |
-|--------|------------------|
+| ------ | ---------------- |
 | 404    | User not found   |
 | 401    | Invalid password |
 
@@ -252,7 +252,7 @@ Retrieve the authenticated user's profile and their linked bank account.
       "_id": "64f1a2b3c4d5e6f7a8b9c0d2",
       "userId": "64f1a2b3c4d5e6f7a8b9c0d1",
       "accountNumber": "1234567890",
-      "balance": 1500.00,
+      "balance": 1500.0,
       "status": "active"
     }
   }
@@ -262,7 +262,7 @@ Retrieve the authenticated user's profile and their linked bank account.
 **Error Responses**
 
 | Status | Condition              |
-|--------|------------------------|
+| ------ | ---------------------- |
 | 404    | User not found         |
 | 404    | Bank account not found |
 
@@ -276,15 +276,16 @@ Deposit an amount into the authenticated user's account. A transaction record is
 
 ```json
 {
-  "amount": 500.00
+  "amount": 500.0
 }
 ```
 
 | Field  | Type   | Required | Description            |
-|--------|--------|----------|------------------------|
+| ------ | ------ | -------- | ---------------------- |
 | amount | number | Yes      | Must be greater than 0 |
 
 **Business Rules**
+
 - Account must be `active`
 - Amount must be greater than 0
 
@@ -298,9 +299,9 @@ Deposit an amount into the authenticated user's account. A transaction record is
     "accountId": "64f1a2b3c4d5e6f7a8b9c0d2",
     "receviedAccountId": "64f1a2b3c4d5e6f7a8b9c0d2",
     "type": "deposit",
-    "amount": 500.00,
-    "balanceBefore": 1000.00,
-    "balanceAfter": 1500.00,
+    "amount": 500.0,
+    "balanceBefore": 1000.0,
+    "balanceAfter": 1500.0,
     "status": "success",
     "createdAt": "2024-01-15T11:00:00.000Z"
   }
@@ -310,7 +311,7 @@ Deposit an amount into the authenticated user's account. A transaction record is
 **Error Responses**
 
 | Status | Condition                  |
-|--------|----------------------------|
+| ------ | -------------------------- |
 | 404    | Bank account not found     |
 | 400    | Amount is 0 or negative    |
 | 400    | Bank account is not active |
@@ -325,15 +326,16 @@ Withdraw an amount from the authenticated user's account.
 
 ```json
 {
-  "amount": 200.00
+  "amount": 200.0
 }
 ```
 
 | Field  | Type   | Required | Description                                   |
-|--------|--------|----------|-----------------------------------------------|
+| ------ | ------ | -------- | --------------------------------------------- |
 | amount | number | Yes      | Must be greater than 0 and not exceed balance |
 
 **Business Rules**
+
 - Account must be `active`
 - Amount must be greater than 0
 - Amount must not exceed current balance
@@ -348,9 +350,9 @@ Withdraw an amount from the authenticated user's account.
     "accountId": "64f1a2b3c4d5e6f7a8b9c0d2",
     "receviedAccountId": "64f1a2b3c4d5e6f7a8b9c0d2",
     "type": "withdrawal",
-    "amount": 200.00,
-    "balanceBefore": 1500.00,
-    "balanceAfter": 1300.00,
+    "amount": 200.0,
+    "balanceBefore": 1500.0,
+    "balanceAfter": 1300.0,
     "status": "success",
     "createdAt": "2024-01-15T11:30:00.000Z"
   }
@@ -359,11 +361,11 @@ Withdraw an amount from the authenticated user's account.
 
 **Error Responses**
 
-| Status | Condition                          |
-|--------|------------------------------------|
-| 409    | Bank account not found             |
-| 400    | Insufficient balance or amount <= 0|
-| 400    | Bank account is not active         |
+| Status | Condition                           |
+| ------ | ----------------------------------- |
+| 409    | Bank account not found              |
+| 400    | Insufficient balance or amount <= 0 |
+| 400    | Bank account is not active          |
 
 ---
 
@@ -375,17 +377,18 @@ Transfer funds from the authenticated user's account to another account identifi
 
 ```json
 {
-  "amount": 100.00,
+  "amount": 100.0,
   "receviedAccountNumber": "9876543210"
 }
 ```
 
-| Field                 | Type   | Required | Description                      |
-|-----------------------|--------|----------|----------------------------------|
-| amount                | number | Yes      | Must be greater than 0           |
-| receviedAccountNumber | string | Yes      | Account number of the recipient  |
+| Field                 | Type   | Required | Description                     |
+| --------------------- | ------ | -------- | ------------------------------- |
+| amount                | number | Yes      | Must be greater than 0          |
+| receviedAccountNumber | string | Yes      | Account number of the recipient |
 
 **Business Rules**
+
 - Sender account must be `active`
 - Recipient account must be `active`
 - Amount must be greater than 0
@@ -401,9 +404,9 @@ Transfer funds from the authenticated user's account to another account identifi
     "accountId": "64f1a2b3c4d5e6f7a8b9c0d2",
     "receviedAccountId": "64f1a2b3c4d5e6f7a8b9c0d9",
     "type": "transfer",
-    "amount": 100.00,
-    "balanceBefore": 1300.00,
-    "balanceAfter": 1200.00,
+    "amount": 100.0,
+    "balanceBefore": 1300.0,
+    "balanceAfter": 1200.0,
     "status": "success",
     "createdAt": "2024-01-15T12:00:00.000Z"
   }
@@ -412,13 +415,13 @@ Transfer funds from the authenticated user's account to another account identifi
 
 **Error Responses**
 
-| Status | Condition                              |
-|--------|----------------------------------------|
-| 409    | Sender account not found               |
-| 409    | Recipient account not found            |
-| 400    | Insufficient balance or amount <= 0    |
-| 400    | Sender account is not active           |
-| 400    | Recipient account is not active        |
+| Status | Condition                           |
+| ------ | ----------------------------------- |
+| 409    | Sender account not found            |
+| 409    | Recipient account not found         |
+| 400    | Insufficient balance or amount <= 0 |
+| 400    | Sender account is not active        |
+| 400    | Recipient account is not active     |
 
 ---
 
@@ -428,10 +431,10 @@ Get paginated transaction history for the authenticated user's account, sorted n
 
 **Query Parameters**
 
-| Parameter | Type   | Default | Description                 |
-|-----------|--------|---------|-----------------------------|
-| page      | number | 1       | Page number                 |
-| limit     | number | 10      | Number of results per page  |
+| Parameter | Type   | Default | Description                |
+| --------- | ------ | ------- | -------------------------- |
+| page      | number | 1       | Page number                |
+| limit     | number | 10      | Number of results per page |
 
 **Example Request**
 
@@ -450,9 +453,9 @@ GET /transaction/get-transactions?page=1&limit=10
       "accountId": "64f1a2b3c4d5e6f7a8b9c0d2",
       "receviedAccountId": "64f1a2b3c4d5e6f7a8b9c0d2",
       "type": "deposit",
-      "amount": 500.00,
-      "balanceBefore": 1000.00,
-      "balanceAfter": 1500.00,
+      "amount": 500.0,
+      "balanceBefore": 1000.0,
+      "balanceAfter": 1500.0,
       "status": "success",
       "createdAt": "2024-01-15T11:00:00.000Z"
     }
@@ -468,7 +471,7 @@ GET /transaction/get-transactions?page=1&limit=10
 **Error Responses**
 
 | Status | Condition              |
-|--------|------------------------|
+| ------ | ---------------------- |
 | 404    | Bank account not found |
 
 ---
@@ -488,9 +491,9 @@ Returns the 10 most recent transactions for the authenticated user. Intended for
       "accountId": "64f1a2b3c4d5e6f7a8b9c0d2",
       "receviedAccountId": "64f1a2b3c4d5e6f7a8b9c0d9",
       "type": "transfer",
-      "amount": 100.00,
-      "balanceBefore": 1300.00,
-      "balanceAfter": 1200.00,
+      "amount": 100.0,
+      "balanceBefore": 1300.0,
+      "balanceAfter": 1200.0,
       "status": "success",
       "createdAt": "2024-01-15T12:00:00.000Z"
     }
@@ -506,7 +509,7 @@ Returns the 10 most recent transactions for the authenticated user. Intended for
 **Error Responses**
 
 | Status | Condition              |
-|--------|------------------------|
+| ------ | ---------------------- |
 | 404    | Bank account not found |
 
 ---
@@ -518,7 +521,7 @@ Retrieve a single transaction by its MongoDB ObjectId.
 **URL Parameters**
 
 | Parameter | Type   | Description                         |
-|-----------|--------|-------------------------------------|
+| --------- | ------ | ----------------------------------- |
 | id        | string | MongoDB ObjectId of the transaction |
 
 **Example Request**
@@ -537,9 +540,9 @@ GET /transaction/get-transaction/64f1a2b3c4d5e6f7a8b9c0d3
     "accountId": "64f1a2b3c4d5e6f7a8b9c0d2",
     "receviedAccountId": "64f1a2b3c4d5e6f7a8b9c0d2",
     "type": "deposit",
-    "amount": 500.00,
-    "balanceBefore": 1000.00,
-    "balanceAfter": 1500.00,
+    "amount": 500.0,
+    "balanceBefore": 1000.0,
+    "balanceAfter": 1500.0,
     "status": "success",
     "createdAt": "2024-01-15T11:00:00.000Z"
   }
@@ -548,9 +551,9 @@ GET /transaction/get-transaction/64f1a2b3c4d5e6f7a8b9c0d3
 
 **Error Responses**
 
-| Status | Condition              |
-|--------|------------------------|
-| 404    | Transaction not found  |
+| Status | Condition             |
+| ------ | --------------------- |
+| 404    | Transaction not found |
 
 ---
 
@@ -572,9 +575,9 @@ Deactivate a bank account by its account number. An inactive account is blocked 
 
 **URL Parameters**
 
-| Parameter | Type   | Description                      |
-|-----------|--------|----------------------------------|
-| id        | string | Account number (not MongoDB _id) |
+| Parameter | Type   | Description                       |
+| --------- | ------ | --------------------------------- |
+| id        | string | Account number (not MongoDB \_id) |
 
 **Example Request**
 
@@ -591,7 +594,7 @@ POST /admin/make-account-inactive/1234567890
     "_id": "64f1a2b3c4d5e6f7a8b9c0d2",
     "userId": "64f1a2b3c4d5e6f7a8b9c0d1",
     "accountNumber": "1234567890",
-    "balance": 1500.00,
+    "balance": 1500.0,
     "status": "inactive"
   }
 }
@@ -599,10 +602,10 @@ POST /admin/make-account-inactive/1234567890
 
 **Error Responses**
 
-| Status | Condition                           |
-|--------|-------------------------------------|
-| 403    | Authenticated user is not an admin  |
-| 404    | Account not found                   |
+| Status | Condition                          |
+| ------ | ---------------------------------- |
+| 403    | Authenticated user is not an admin |
+| 404    | Account not found                  |
 
 ---
 
@@ -612,9 +615,9 @@ Reactivate a deactivated bank account by its account number.
 
 **URL Parameters**
 
-| Parameter | Type   | Description                      |
-|-----------|--------|----------------------------------|
-| id        | string | Account number (not MongoDB _id) |
+| Parameter | Type   | Description                       |
+| --------- | ------ | --------------------------------- |
+| id        | string | Account number (not MongoDB \_id) |
 
 **Example Request**
 
@@ -631,7 +634,7 @@ POST /admin/make-account-active/1234567890
     "_id": "64f1a2b3c4d5e6f7a8b9c0d2",
     "userId": "64f1a2b3c4d5e6f7a8b9c0d1",
     "accountNumber": "1234567890",
-    "balance": 1500.00,
+    "balance": 1500.0,
     "status": "active"
   }
 }
@@ -639,10 +642,10 @@ POST /admin/make-account-active/1234567890
 
 **Error Responses**
 
-| Status | Condition                           |
-|--------|-------------------------------------|
-| 403    | Authenticated user is not an admin  |
-| 404    | Account not found                   |
+| Status | Condition                          |
+| ------ | ---------------------------------- |
+| 403    | Authenticated user is not an admin |
+| 404    | Account not found                  |
 
 ---
 
@@ -660,10 +663,10 @@ All errors follow a consistent response shape powered by the global `AppError` c
 
 **HTTP Status Codes**
 
-| Status | Meaning                                                          |
-|--------|------------------------------------------------------------------|
-| 200    | Success                                                          |
-| 400    | Bad Request (validation, invalid amount, inactive account)       |
+| Status | Meaning                                                         |
+| ------ | --------------------------------------------------------------- |
+| 200    | Success                                                         |
+| 400    | Bad Request (validation, invalid amount, inactive account)      |
 | 401    | Unauthorized (invalid credentials or token)                     |
 | 403    | Forbidden (non-admin accessing admin route)                     |
 | 404    | Not Found (user, account, or transaction)                       |
@@ -686,11 +689,11 @@ All errors follow a consistent response shape powered by the global `AppError` c
 
 Rate limiting is applied globally across all routes:
 
-| Setting      | Value                           |
-|--------------|---------------------------------|
-| Window       | 15 minutes                      |
-| Max requests | 100 per IP per window           |
-| Legacy headers | Disabled                      |
+| Setting        | Value                 |
+| -------------- | --------------------- |
+| Window         | 15 minutes            |
+| Max requests   | 100 per IP per window |
+| Legacy headers | Disabled              |
 
 **Response when limit is exceeded (HTTP 429)**
 
@@ -717,13 +720,15 @@ update transaction  →  status: success
 
 ## Account Status Reference
 
-| Status   | Can Transact | Set By |
-|----------|--------------|--------|
+| Status   | Can Transact | Set By                     |
+| -------- | ------------ | -------------------------- |
 | active   | Yes          | System (on signup) / Admin |
-| inactive | No           | Admin  |
+| inactive | No           | Admin                      |
 
 ---
 
 ## License
 
 MIT
+
+[Postman](https://mosalaha361-6851529.postman.co/workspace/Fakhr-Basha's-Workspace~317760f7-6833-4547-8924-25e283a22349/collection/49271050-ecb6cea1-85b9-4389-81da-54db8690d59e?action=share&source=copy-link&creator=49271050)
