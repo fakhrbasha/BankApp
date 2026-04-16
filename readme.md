@@ -100,11 +100,15 @@ src/
 │   ├── models/
 │   │   ├── user.model.ts
 │   │   └── bankAccount.model.ts
+│   │   └── transaction.model.ts
+│   │   └── beneficiary.model.ts
 │   ├── repository/
 │   │   ├── user.repository.ts
 │   │   ├── account.repository.ts
 │   │   └── trancaction.repository.ts
 │   └── connectionDB.ts
+
+└── app.controller.ts
 └── app.ts
 ```
 
