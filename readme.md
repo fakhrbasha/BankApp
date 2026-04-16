@@ -34,7 +34,8 @@ A RESTful banking API built with Node.js, Express, and MongoDB. It supports user
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/fakhrbasha/bank-system-api.git
+git clone https://github.com/fakhrbasha/BankApp.git
+
 cd bank-system-api
 
 # 2. Install dependencies
